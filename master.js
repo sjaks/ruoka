@@ -1,7 +1,6 @@
 //Declare HTML DOM variables
 var menuTitle = document.getElementById('title');
 var regularMenuElement = document.getElementById('regularMenu');
-var vegetarianMenuElement = document.getElementById('vegetarianMenu');
 var regularMealTomorrow = document.getElementById('regularMealTomorrow');
 var subTitles = document.getElementsByTagName('h3');
 
@@ -69,41 +68,20 @@ $.get(url + dateToday, function(data) {
 	//Parse response object into javascript arrays
 	//Second index number points to specific menu
 	var regularMenu = data[0]["menuTypes"][0]["menus"][0]["days"][0]["mealoptions"][0]["menuItems"];
-	var vegetarianMenu = data[0]["menuTypes"][2]["menus"][0]["days"][0]["mealoptions"][0]["menuItems"];
 										   // ^ Menu index
 
 	//Parse js arrays into HTML tables
 	var regularMenuString = parseData(regularMenu);
-	var vegetarianMenuString = parseData(vegetarianMenu);
 
 	//Modify HTML, print data on website
 	regularMenuElement.innerHTML = regularMenuString;
-	//vegetarianMenuElement.innerHTML = vegetarianMenuString; Ei näytetä kasvisruokalistaa!
 }).fail(function() {
 	//Show error
 	menuTitle.style.color = "black";
 	menuTitle.innerHTML = "Ruokalistaa ei saatu ladattua"
-	//menuTitle.style.fontSize = "50px !important"; 
 	for(var j = 0;j < subTitles.length;j++) {
 		subTitles[j].innerHTML = "";
 	}
 	//Reload page and try again
 	//window.location.reload();
 });
-
-
-
-/* Seuraavan päivän ruokalista pois käytöstä
-
-//Get tomorrow's primary meal
-$.get(url + dateTomorrow, function(data) {
-	var regularMenu = data[0]["menuTypes"][0]["menus"][0]["days"][0]["mealoptions"][0]["menuItems"];
-	regularMealTomorrow.innerHTML = regularMenu[0]["name"];
-}).fail(function() {
-	//menuTitle.style.color = "red";
-	//menuTitle.innerHTML = "Päivitetään..."
-	//window.location.reload();
-	regularMealTomorrow.innerHTML = "verkkovirhe 404";
-});
-
-*/
